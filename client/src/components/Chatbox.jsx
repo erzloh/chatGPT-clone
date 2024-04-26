@@ -1,7 +1,7 @@
 import userAvatar from '../assets/user_icon.png'
 import chatgptAvatar from '../assets/chatgpt_icon.webp'
-import SendIcon from './icons/SendIcon/SendIcon'
 import ChatMessage from './ChatMessage'
+import ChatboxInput from './ChatboxInput'
 
 const Chatbox = () => {
 	return (
@@ -19,12 +19,7 @@ const Chatbox = () => {
 				/>
 
 			</div>
-			<div className='chatbox__input'>
-				<textarea placeholder='Type a message...'></textarea>
-				<button>
-					<SendIcon />
-				</button>
-			</div>
+			<ChatboxInput />
 		</main>
 	)
 }

@@ -1,12 +1,12 @@
-import PlusIcon from './icons/PlusIcon/PlusIcon';
+import PlusIcon from './icons/PlusIcon';
 
 const Sidemenu = () => {
   return (
     <aside className='sidemenu'>
-      <div className='sidemenu__button'>
+      <button className='sidemenu__button' aria-label="Create new chat">
         <PlusIcon />
         <span>New chat</span>
-      </div>
+      </button>
     </aside>
   );
 };

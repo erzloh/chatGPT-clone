@@ -1,15 +1,13 @@
-const ChatMessage = (props) => {
+const ChatMessage = ({ avatar, name, message }) => {
 	return (
 		<div className="chat-log__message">
 			<div className="chat-log__message__avatar">
-				<img src={props.avatar} alt="avatar" />
-				<span>{props.name}</span>
+				<img src={avatar} alt={`${name}'s avatar`} />
+				<span>{name}</span>
 			</div>
-			<div className="chat-log__message__content">
-				<p>
-					{props.message}
-				</p>
-			</div>
+			<p className="chat-log__message__content" >
+				{message}
+			</p>
 		</div> 
 	)
 }
