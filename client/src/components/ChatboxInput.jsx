@@ -1,7 +1,7 @@
 import SendIcon from './icons/SendIcon'
 import { useState } from 'react'
 
-const ChatboxInput = () => {
+const ChatboxInput = ({ setMessages }) => {
 	const [message, setMessage] = useState('')
 
 	function handleChange(event) {
@@ -14,7 +14,21 @@ const ChatboxInput = () => {
 		if (message.trim() == '')
 			return
 		console.log('form has been submitted')
+		setMessages((prevState) => [
+			...prevState,
+			{
+				message
+			}
+		])
+		setMessage('')
 	}
+
+	function handleKeyDown(event) {
+        if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
+            event.preventDefault();
+            handleSubmit(event);
+        }
+    };
 
 	return (
 		<form className='chatbox__input' onSubmit={handleSubmit}>
@@ -23,6 +37,7 @@ const ChatboxInput = () => {
 				value={message}
 				name='message'
 				onChange={handleChange}
+				onKeyDown={handleKeyDown}
 				aria-label='type your message here'
 			></textarea>
 			<button type='sumbit' aria-label='Send message'>
