@@ -1,47 +1,94 @@
 import SendIcon from './icons/SendIcon'
+import StopIcon from './icons/StopIcon'
 import { useState } from 'react'
 
-const ChatboxInput = ({ setMessages }) => {
+const ChatboxInput = ({ messages, setMessages, isGptAnswering, setIsGptAnswering }) => {
 	const [message, setMessage] = useState('')
 
-	function handleChange(event) {
+	function handleMessageChange(event) {
 		setMessage(event.target.value)
-		console.log('updating state')
 	}
 
-	function handleSubmit(event) {
+	async function handleMessageSubmit(event) {
 		event.preventDefault()
-		if (message.trim() == '')
+		if (message.trim() == '' || isGptAnswering)
 			return
-		console.log('form has been submitted')
-		setMessages((prevState) => [
-			...prevState,
-			{
-				message
-			}
-		])
+		setMessages((prevState) => {
+			const newMessages = [
+				...prevState,
+				{
+					id: prevState.length,
+					message: message,
+					role: 'user'
+				}
+			]
+
+			addApiResponseToMessagesState(newMessages)
+
+			return newMessages
+		})
 		setMessage('')
+	}
+
+	async function addApiResponseToMessagesState(messagesArray) {
+		try {
+			setIsGptAnswering(true)
+			const response = await fetch('http://localhost:3080/', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					messages: messagesArray.map((message) => (
+						{
+							role: message.role,
+							content: message.message
+						}
+					))
+				})
+			})
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`)
+			}
+
+			const data = await response.json()
+			console.log(data)
+			setMessages((prevState) => [
+				...prevState,
+				{
+					id: prevState.length,
+					message: data.message,
+					role: 'assistant'
+				}
+			])
+
+			setIsGptAnswering(false)
+
+		} catch (error) {
+			console.error('There was a problem with your fetch operation:', error)
+		}
 	}
 
 	function handleKeyDown(event) {
         if (event.key === 'Enter' && (event.metaKey || event.ctrlKey)) {
             event.preventDefault();
-            handleSubmit(event);
+            handleMessageSubmit(event);
         }
     };
 
 	return (
-		<form className='chatbox__input' onSubmit={handleSubmit}>
+		<form className='chatbox__input' onSubmit={handleMessageSubmit}>
 			<textarea 
 				placeholder='Type a message...'
 				value={message}
 				name='message'
-				onChange={handleChange}
+				onChange={handleMessageChange}
 				onKeyDown={handleKeyDown}
 				aria-label='type your message here'
 			></textarea>
-			<button type='sumbit' aria-label='Send message'>
-				<SendIcon />
+			<button type='submit' aria-label='Send message'>
+				{isGptAnswering ? <StopIcon /> : <SendIcon />}
 			</button>
 		</form>
 	)
