@@ -13,21 +13,18 @@ const ChatboxInput = ({ messages, setMessages, isGptAnswering, setIsGptAnswering
 		event.preventDefault()
 		if (message.trim() == '' || isGptAnswering)
 			return
-		setMessages((prevState) => {
-			const newMessages = [
-				...prevState,
-				{
-					id: prevState.length,
-					message: message,
-					role: 'user'
-				}
-			]
 
-			addApiResponseToMessagesState(newMessages)
-
-			return newMessages
-		})
+		const newMessages = [
+			...messages,
+			{
+				id: messages.length,
+				message: message,
+				role: 'user'
+			}
+		]
+		setMessages(newMessages)
 		setMessage('')
+		addApiResponseToMessagesState(newMessages)
 	}
 
 	async function addApiResponseToMessagesState(messagesArray) {
@@ -53,7 +50,6 @@ const ChatboxInput = ({ messages, setMessages, isGptAnswering, setIsGptAnswering
 			}
 
 			const data = await response.json()
-			console.log(data)
 			setMessages((prevState) => [
 				...prevState,
 				{
