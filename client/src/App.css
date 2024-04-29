@@ -3,6 +3,7 @@
 	--color-secondary: #181818;
 	--color-border: #494949;
 	--color-hover: var(--color-border);
+	--color-grey-text: #b4b4b4;
 	--border-radius: 15px;
 	--transition-speed: 0.25s;
 }
@@ -18,6 +19,42 @@
 	width: 260px;
 	background-color: var(--color-secondary);
 	padding: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.sidemenu-container {
+	position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+	display: flex;
+	z-index: 2;
+}
+
+.close-button-container {
+	background-color: transparent;
+}
+
+.show-sidemenu {
+    transform: translateX(0);
+}
+
+.close-button {
+	box-sizing: content-box;
+	background-color: transparent;
+	border: none;
+	padding: 20px;
+	cursor: pointer;
+	width: 12px;
+	margin: 5px;
+}
+
+.close-icon {
+	width: 100%;
+	height: 100%;
 }
 
 .sidemenu__button {
@@ -50,14 +87,93 @@
 	opacity: 0.5;
 }
 
+.history {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+	overflow-y: auto;
+	scrollbar-color: #3d3d3d transparent;
+}
+
+.history-text {
+	color: var(--color-grey-text);
+	font-size: 0.75rem;
+	font-weight: 500;
+	padding: 5px;
+}
+
+.history__item {
+	padding: 5px;
+	border-radius: 10px;
+	margin-bottom: 5px;
+	transition: background-color var(--transition-speed);
+}
+
+.history__item:hover {
+	background-color: var(--color-border);
+	cursor: pointer;
+}
+
+.history__item span {
+	color: #fff;
+	font-size: .875rem;
+}
+
+.current-chat {
+	background-color: #323232;
+}
+
+/* ---------------- Overlay ---------------- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
 /* ---------------- Chatbox ---------------- */
 .chatbox {
 	background-color: var(--color-primary);
 	flex: 1;
-	max-width: 768px;
-	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
+}
+
+.navbar {
+	height: 44px;
+	display: flex;
+	align-items: center;
+	justify-content: start;
+}
+
+.navbar__button {
+	border: none;
+	background-color: transparent;
+	color: #fff;
+	cursor: pointer;
+	padding: 0px;
+	margin: 0px;
+	margin-left: 10px;
+}
+
+hr {
+	border: 0.5px solid #494949;
+	width: 100%;
+	margin: 0px;
+}
+
+.chatbox-main {
+	width: 100%;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	max-width: 768px;
+	margin: 0 auto;
+	overflow-y: auto;
 }
 
 .chat-log {
