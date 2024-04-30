@@ -30,7 +30,7 @@ const ChatboxInput = ({ messages, setMessages, isGptAnswering, setIsGptAnswering
 	async function addApiResponseToMessagesState(messagesArray) {
 		try {
 			setIsGptAnswering(true)
-			const response = await fetch('https://mychatgptserver-np88ifrk5-erzlohs-projects.vercel.app/', {
+			const response = await fetch('https://mychatgptserver-g4ljpds3t-erzlohs-projects.vercel.app/', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
