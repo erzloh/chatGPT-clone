@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import './App.css'
 import Sidemenu from './components/Sidemenu'
 import Chatbox from './components/Chatbox'
@@ -19,21 +19,17 @@ function App() {
 	const [isGptAnswering, setIsGptAnswering] = useState(false)
 	const [showSidemenu, setShowSidemenu] = useState(false)
 
-	const toggleSidemenu = () => setShowSidemenu(prev => !prev);
+	const toggleSidemenu = useCallback(() => setShowSidemenu(prev => !prev), []);
 
+	// Update the chats state each time the messages state is updated
 	useEffect(() => {
 		setChats((prevState) => {
 			const newChats = [...prevState]
 			const currentChat = newChats.find(chat => chat.id === currentChatId)
 			currentChat.messages = messages
-			console.log('currentChat', currentChat)
 			return newChats
 		})
 	}, [messages])
-
-	useEffect(() => {
-		setMessages(chats.find(chat => chat.id === currentChatId).messages)
-	}, [currentChatId])
 
 	return (
 		<div className='App'>

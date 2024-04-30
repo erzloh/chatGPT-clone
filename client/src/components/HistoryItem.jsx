@@ -1,10 +1,10 @@
-const HistoryItem = ({ chatTitle, toggleSidemenu, updateCurrentChatId, isCurrentChat }) => {
-	const loadChat = () => {
-		updateCurrentChatId()
-		toggleSidemenu()
-	}
+const HistoryItem = ({ chatTitle, isCurrentChat, loadChat }) => {
 	return (
-		<div className={`history__item ${isCurrentChat ? 'current-chat' : ''}`} onClick={loadChat}>
+		<div
+			className={`history__item ${isCurrentChat ? 'current-chat' : ''}`}
+			onClick={loadChat}
+			aria-label="Load chat"
+		>
 			<span className='history__item-text'>{chatTitle}</span>
 		</div>
 	)

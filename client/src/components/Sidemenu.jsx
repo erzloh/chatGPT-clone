@@ -23,8 +23,11 @@ const Sidemenu = ({ setMessages, isGptAnswering, showSidemenu, toggleSidemenu, c
 			<HistoryItem 
 				key={chat.id}
 				chatTitle={chat.title}
-				toggleSidemenu={toggleSidemenu}
-				updateCurrentChatId={() => setCurrentChatId(chat.id)}
+				loadChat={() => {
+					setMessages(chat.messages)
+					setCurrentChatId(chat.id)
+					toggleSidemenu()
+				}}
 				isCurrentChat={currentChatId === chat.id}
 			/>
 		)

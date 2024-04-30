@@ -5,13 +5,14 @@ import cors from 'cors'
 const app = express();
 const openai = new OpenAI();
 
+// -------------------- Middlewares --------------------
 app.use(cors({
     origin: 'http://localhost:5173'
 }));
 
 app.use(express.json());
 
-// POSTリクエストが'/'に送信された場合の処理
+// -------------------- Routes --------------------
 app.post('/', async (req, res) => {
   try {
     const completion = await openai.chat.completions.create({
@@ -30,7 +31,7 @@ app.post('/', async (req, res) => {
   }
 });
 
-// サーバーを起動
+// -------------------- Launch the server --------------------
 const port = 3080;
 app.listen(port, () => {
   console.log(`Server is running on port http://localhost:${port}`);
