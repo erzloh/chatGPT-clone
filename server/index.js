@@ -22,8 +22,11 @@ app.post('/', async (req, res) => {
 
     const message = completion.choices[0].message.content;
 
+	// res.json({
+	// 	message: message
+	// })
 	res.json({
-		message: message
+		message: 'Hello, how can I help you?'
 	})
   } catch (error) {
     console.error('Error:', error);
