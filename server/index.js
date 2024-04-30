@@ -6,9 +6,10 @@ const app = express();
 const openai = new OpenAI();
 
 // -------------------- Middlewares --------------------
-app.use(cors({
-	origin: /.*\.vercel\.app$/,
-}));
+// app.use(cors({ 
+// 	origin: /.*\.vercel\.app$/,
+// }));
+app.use(cors());
 
 app.use(express.json());
 
