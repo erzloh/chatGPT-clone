@@ -7,7 +7,7 @@ const openai = new OpenAI();
 
 // -------------------- Middlewares --------------------
 app.use(cors({
-    origin: 'https://mychatgptclient-dir0jf4ch-erzlohs-projects.vercel.app/'
+    origin: 'https://mychatgptclient-nq6qck9dk-erzlohs-projects.vercel.app/'
 }));
 
 app.use(express.json());
