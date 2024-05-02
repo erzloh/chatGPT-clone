@@ -12,9 +12,14 @@ const openai = new OpenAI();
 // app.use(cors({
 // 	origin: 'http://localhost:5173'
 // }));
-app.use(cors({
-	origin: 'https://mychatgptclient-erzlohs-projects.vercel.app/'
-}));
+
+const corsOptions = {
+	origin: 'https://mychatgptclient-erzlohs-projects.vercel.app',
+	methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+	credentials: true
+  };
+
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
