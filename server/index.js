@@ -9,7 +9,12 @@ const openai = new OpenAI();
 // app.use(cors({ 
 // 	origin: /.*\.vercel\.app$/,
 // }));
-app.use(cors());
+// app.use(cors({
+// 	origin: 'http://localhost:5173'
+// }));
+app.use(cors({
+	origin: 'https://mychatgptclient-erzlohs-projects.vercel.app/'
+}));
 
 app.use(express.json());
 
