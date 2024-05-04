@@ -30,6 +30,7 @@ const ChatboxInput = ({ messages, setMessages, isGptAnswering, setIsGptAnswering
 	async function addApiResponseToMessagesState(messagesArray) {
 		try {
 			setIsGptAnswering(true)
+			// const response = await fetch('http://localhost:3080/', {
 			const response = await fetch('https://mychatgptserver-erzlohs-projects.vercel.app/', {
 				method: 'POST',
 				headers: {
@@ -44,12 +45,14 @@ const ChatboxInput = ({ messages, setMessages, isGptAnswering, setIsGptAnswering
 					))
 				})
 			})
-
+			let data = {};
 			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`)
+				data = {
+					message: 'Sorry, your message limit has been exceeded. Please try again later.'
+				}
+			} else {
+				data = await response.json()
 			}
-
-			const data = await response.json()
 			setMessages((prevState) => [
 				...prevState,
 				{

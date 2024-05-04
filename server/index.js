@@ -1,27 +1,31 @@
 import express from 'express';
 import OpenAI from 'openai';
 import cors from 'cors'
+import rateLimit from 'express-rate-limit';
 
 const app = express();
 const openai = new OpenAI();
 
 // -------------------- Middlewares --------------------
-// app.use(cors({ 
-// 	origin: /.*\.vercel\.app$/,
-// }));
-// app.use(cors({
-// 	origin: 'http://localhost:5173'
-// }));
-
 const corsOptions = {
 	origin: 'https://mychatgptclient-erzlohs-projects.vercel.app',
-	methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH'],
+	methods: ['POST'],
 	credentials: true
   };
 
 app.use(cors(corsOptions));
+// app.use(cors());
 
 app.use(express.json());
+
+// -------------------- Rate Limiter --------------------
+const limiter = rateLimit({
+	windowMs: 24 * 60 * 60 * 1000,
+	max: 10,
+	message: 'You have exceeded the 5 requests in 1 minute limit!'
+});
+
+app.use(limiter);
 
 // -------------------- Routes --------------------
 app.post('/', async (req, res) => {
@@ -33,12 +37,12 @@ app.post('/', async (req, res) => {
 
     const message = completion.choices[0].message.content;
 
-	// res.json({
-	// 	message: message
-	// })
 	res.json({
-		message: 'Hello, how can I help you?'
+		message: message
 	})
+	// res.json({
+	// 	message: 'Hello, how can I help you?'
+	// })
   } catch (error) {
     console.error('Error:', error);
     res.status(500).json({ error: 'An error occurred' });

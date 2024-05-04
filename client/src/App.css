@@ -273,7 +273,7 @@ hr {
 	border: 1px solid #494949;
 	resize: none;
 	color: #fff;
-	font-family: Inter;
+	font-family: Inter, sans-serif;
 	font-size: 1rem;
 	
 	scrollbar-width: thin; /* Firefox */
