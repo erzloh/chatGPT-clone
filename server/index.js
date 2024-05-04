@@ -21,8 +21,8 @@ app.use(express.json());
 // -------------------- Rate Limiter --------------------
 const limiter = rateLimit({
 	windowMs: 24 * 60 * 60 * 1000,
-	max: 10,
-	message: 'You have exceeded the 5 requests in 1 minute limit!'
+	max: 5,
+	message: 'You have exceeded your request limit!'
 });
 
 app.use(limiter);
